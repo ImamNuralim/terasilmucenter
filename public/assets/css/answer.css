@@ -1,0 +1,109 @@
+.col-11{
+    font-size: 12px"
+}
+
+.caption{
+    font-size: 13px;
+}
+
+.follow{
+    font-size: 12px;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+.row{
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.image-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.modal-body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0;
+    position: relative;
+}
+.modal-body.text-center {
+    display: flex !important;
+    flex-direction: row !important; /* Pastikan elemen diatur horizontal */
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}
+
+.modal-content {
+    background-color: blur;
+    border: none;
+}
+.modal-dialog-centered {
+    max-width: 100%;
+    margin: 0;
+}
+.modal-dialog {
+    width: 100%;
+    height: 100%;
+    max-width: none;
+}
+.modal-body img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+    position: relative;
+}
+.close-btn {
+    position: fixed;
+    top: 10px;
+    right: 10px;
+    font-size: 2rem;
+    color: white;
+    background: none;
+    border: none;
+    cursor: pointer;
+    z-index: 10; /* Ensure the close button is above the image */
+}
+.close-btn:hover {
+    color: #ccc;
+}
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+.feather-loader {
+    animation: spin 1s linear infinite;
+}
+.username{
+    font-size: 13px;
+    text-decoration: none
+}
+.no-underline {
+    text-decoration: none;
+}
+.no-underline:hover {
+    text-decoration: none;
+}
+.credential {
+    text-decoration: none !important;
+    font-size: 13px !important;
+}
+
+
+@media (max-width: 575px) {
+    .username{
+        font-size: 12px;
+    }
+    .text-secondary{
+        font-size: 10px;
+    }
+    .row{
+        display: flex;
+    flex-wrap: wrap;
+    }
+    .credential {
+        text-decoration: none !important;
+        font-size: 11px !important;
+    }
+}
