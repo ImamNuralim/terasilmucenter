@@ -60,27 +60,6 @@
             background-color: unset !important;
         }
 
-        html {
-            scroll-behavior: smooth;
-        }
-
-        .kategori .active {
-            font-weight: bold;
-            color: blue;
-        }
-
-        .swal2-success-circular-line-right {
-            background-color: unset !important;
-        }
-
-        .swal2-success-circular-line-left {
-            background-color: unset !important;
-        }
-
-        .swal2-success-fix {
-            background-color: unset !important;
-        }
-
         .sticky {
             position: -webkit-sticky;
             /* Safari */
@@ -95,56 +74,31 @@
             /* Sesuaikan padding sesuai kebutuhan */
             margin-bottom: 0;
         }
+        .dropdown-toggle { display: none; }
 
-        .dropdown-toggle {
-            display: none;
-        }
-
-        @media (max-width: 766px) {
-            .dropdown{
-                margin-top: -18px !important;
-                padding-bottom: 10px;
-            }
-            .dropdown-toggle {
-                display: block;
-            }
-
-            .sort-list {
-                display: none;
-            }
-
-            .dropdown-menu {
-                padding: 5px 0;
-                /* jarak atas-bawah */
-                width: 150px;
-                /* lebar dropdown */
-                font-size: 14px;
-                /* ukuran teks */
-            }
-
-            .dropdown-menu li {
-                padding: 8px 10px;
-                /* jarak antar item */
-                cursor: pointer;
-            }
-
-            .dropdown-toggle {
-                /* hanya muncul di layar kecil */
-                padding: 5px 10px;
-                /* jarak atas-bawah */
-                font-size: 14px;
-                /* ukuran teks dropdown */
-                width: 150px;
-                /* lebar dropdown */
-                text-align: center;
-                background-color: #4299E1;
-                /* warna latar belakang */
-                border: 1px solid #ddd;
-                /* border */
-                border-radius: 5px;
-                /* rounded corners */
-            }
-        }
+@media (max-width: 766px) {
+    .dropdown-toggle { display: block; }
+    .sort-list { display: none; }
+    .dropdown-menu {
+    padding: 5px 0; /* jarak atas-bawah */
+    width: 150px; /* lebar dropdown */
+    font-size: 14px; /* ukuran teks */
+}
+.dropdown-menu li {
+    padding: 8px 10px; /* jarak antar item */
+    cursor: pointer;
+}
+.dropdown-toggle {
+    /* hanya muncul di layar kecil */
+    padding: 5px 10px; /* jarak atas-bawah */
+    font-size: 14px; /* ukuran teks dropdown */
+    width: 150px; /* lebar dropdown */
+    text-align: center;
+    background-color: #4299E1; /* warna latar belakang */
+    border: 1px solid #ddd; /* border */
+    border-radius: 5px; /* rounded corners */
+}
+}
     </style>
 
     @if (session('success'))
@@ -184,7 +138,7 @@
 
     <div class="container mt-3">
         <div class="row">
-            <div class="col-lg-2 kategori">
+            <div class="col-lg-2 kategori sticky">
                 <div class="d-flex justify-content-between align-items-center" style="margin-top: 1vh!important;">
                     <h3>Kategori</h3>
                     @if ($selectedKategori)
@@ -222,29 +176,34 @@
                 </div>
                 <ul class="list-unstyled">
                     @foreach ([
-            'newest' => 'Terbaru',
-            'upvotes' => 'Up Votes Terbanyak',
-            'downvotes' => 'Down Votes Terbanyak',
-            'oldest' => 'Terlama',
-        ] as $sortKey => $sortLabel)
+                        'newest' => 'Terbaru',
+                        'upvotes' => 'Like Terbanyak',
+                        'downvotes' => 'Unlike Terbanyak',
+                        'oldest' => 'Terlama',
+                    ] as $sortKey => $sortLabel)
                         <li style="padding:2px;">
                             <a href="{{ route(auth()->user()->role . '.homekategori', ['sort' => $sortKey, 'kategori' => $selectedKategori]) }}"
                                 class="{{ request('sort') === $sortKey ? 'active' : '' }}">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
-                                    fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                    stroke-linejoin="round"
-                                    class="icon icon-tabler icons-tabler-outline icon-tabler-category">
-                                    <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                                    <path d="M4 4h6v6h-6z" />
-                                    <path d="M14 4h6v6h-6z" />
-                                    <path d="M4 14h6v6h-6z" />
-                                    <path d="M17 17m-3 0a3 3 0 1 0 6 0a3 3 0 1 0 -6 0" />
-                                </svg>
+                                @switch($sortKey)
+                                    @case('newest')
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"><path fill="currentColor" d="M11 14v2q0 .425.288.713T12 17t.713-.288T13 16v-2h2q.425 0 .713-.288T16 13t-.288-.712T15 12h-2v-2q0-.425-.288-.712T12 9t-.712.288T11 10v2H9q-.425 0-.712.288T8 13t.288.713T9 14zm1 8q-1.875 0-3.512-.712t-2.85-1.925t-1.925-2.85T3 13t.713-3.512t1.924-2.85t2.85-1.925T12 4t3.513.713t2.85 1.925t1.925 2.85T21 13t-.712 3.513t-1.925 2.85t-2.85 1.925T12 22M2.05 7.3q-.275-.275-.275-.7t.275-.7L4.9 3.05q.275-.275.7-.275t.7.275t.275.7t-.275.7L3.45 7.3q-.275.275-.7.275t-.7-.275m19.9 0q-.275.275-.7.275t-.7-.275L17.7 4.45q-.275-.275-.275-.7t.275-.7t.7-.275t.7.275l2.85 2.85q.275.275.275.7t-.275.7"/></svg>
+                                        @break
+                                    @case('upvotes')
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M14.54 10.105h5.533c2.546 0-.764 10.895-2.588 10.895H4.964A.956.956 0 0 1 4 20.053v-9.385c0-.347.193-.666.502-.832C6.564 8.73 8.983 7.824 10.18 5.707l1.28-2.266A.87.87 0 0 1 12.222 3c3.18 0 2.237 4.63 1.805 6.47a.52.52 0 0 0 .513.635"/></svg>
+                                        @break
+                                    @case('downvotes')
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M10.46 13.895H4.927C2.381 13.895 5.691 3 7.515 3h12.521c.532 0 .964.424.964.947v9.385a.95.95 0 0 1-.502.832c-2.062 1.106-4.481 2.012-5.678 4.129l-1.28 2.266a.87.87 0 0 1-.762.441c-3.18 0-2.237-4.63-1.805-6.47a.52.52 0 0 0-.513-.635"/></svg>
+                                        @break
+                                    @case('oldest')
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"><path fill="currentColor" d="M12 22q-1.875 0-3.512-.712t-2.85-1.925t-1.925-2.85T3 13t.713-3.512t1.924-2.85t2.85-1.925T12 4t3.513.713t2.85 1.925t1.925 2.85T21 13t-.712 3.513t-1.925 2.85t-2.85 1.925T12 22m2.8-4.8l1.4-1.4l-3.2-3.2V8h-2v5.4zM5.6 2.35L7 3.75L2.75 8l-1.4-1.4zm12.8 0l4.25 4.25l-1.4 1.4L17 3.75z"/></svg>
+                                        @break
+                                @endswitch
                                 {{ $sortLabel }}
                             </a>
                         </li>
                     @endforeach
                 </ul>
+
             </div>
 
 
@@ -282,58 +241,43 @@
                 </div>
                 <div class="d-lg-none"> <!-- Tampilkan hanya di layar kecil -->
                     <div class="dropdown">
-                        <button class="btn btn-secondary dropdown-toggle" type="button" id="sortDropdown"
-                            data-bs-toggle="dropdown" aria-expanded="false">
+                        <button class="btn btn-secondary dropdown-toggle" type="button" id="sortDropdown" data-bs-toggle="dropdown" aria-expanded="false">
                             Urutkan
                         </button>
                         <ul class="dropdown-menu" aria-labelledby="sortDropdown">
                             @foreach ([
-            'newest' => 'Terbaru',
-            'upvotes' => 'Like Terbanyak',
-            'downvotes' => 'Unlike Terbanyak',
-            'oldest' => 'Terlama',
-        ] as $sortKey => $sortLabel)
+                                'newest' => 'Terbaru',
+                                'upvotes' => 'Like Terbanyak',
+                                'downvotes' => 'Unlike Terbanyak',
+                                'oldest' => 'Terlama',
+                            ] as $sortKey => $sortLabel)
                                 <li>
                                     <a class="dropdown-item {{ request('sort') === $sortKey ? 'active' : '' }}"
-                                        href="{{ route(auth()->user()->role . '.homekategori', ['sort' => $sortKey, 'kategori' => $selectedKategori]) }}">
+                                       href="{{ route(auth()->user()->role . '.homekategori', ['sort' => $sortKey, 'kategori' => $selectedKategori]) }}">
                                         @switch($sortKey)
                                             @case('newest')
                                                 <!-- SVG Icon for Newest -->
-                                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
-                                                    viewBox="0 0 24 24">
-                                                    <path fill="currentColor"
-                                                        d="M11 14v2q0 .425.288.713T12 17t.713-.288T13 16v-2h2q.425 0 .713-.288T16 13t-.288-.712T15 12h-2v-2q0-.425-.288-.712T12 9t-.712.288T11 10v2H9q-.425 0-.712.288T8 13t.288.713T9 14zm1 8q-1.875 0-3.512-.712t-2.85-1.925t-1.925-2.85T3 13t.713-3.512t1.924-2.85t2.85-1.925T12 4t3.513.713t2.85 1.925t1.925 2.85T21 13t-.712 3.513t-1.925 2.85t-2.85 1.925T12 22M2.05 7.3q-.275-.275-.275-.7t.275-.7L4.9 3.05q.275-.275.7-.275t.7.275t.275.7t-.275.7L3.45 7.3q-.275.275-.7.275t-.7-.275m19.9 0q-.275.275-.7.275t-.7-.275L17.7 4.45q-.275-.275-.275-.7t.275-.7t.7-.275t.7.275l2.85 2.85q.275.275.275.7t-.275.7" />
-                                                </svg>
-                                            @break
-
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24">
+                                                    <path fill="currentColor" d="M11 14v2q0 .425.288.713T12 17t.713-.288T13 16v-2h2q.425 0 .713-.288T16 13t-.288-.712T15 12h-2v-2q0-.425-.288-.712T12 9t-.712.288T11 10v2H9q-.425 0-.712.288T8 13t.288.713T9 14zm1 8q-1.875 0-3.512-.712t-2.85-1.925t-1.925-2.85T3 13t.713-3.512t1.924-2.85t2.85-1.925T12 4t3.513.713t2.85 1.925t1.925 2.85T21 13t-.712 3.513t-1.925 2.85t-2.85 1.925T12 22M2.05 7.3q-.275-.275-.275-.7t.275-.7L4.9 3.05q.275-.275.7-.275t.7.275t.275.7t-.275.7L3.45 7.3q-.275.275-.7.275t-.7-.275m19.9 0q-.275.275-.7.275t-.7-.275L17.7 4.45q-.275-.275-.275-.7t.275-.7t.7-.275t.7.275l2.85 2.85q.275.275.275.7t-.275.7"/></svg>
+                                                @break
                                             @case('upvotes')
                                                 <!-- SVG Icon for Upvotes -->
-                                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
-                                                    viewBox="0 0 24 24">
-                                                    <path fill="none" stroke="currentColor" stroke-linecap="round"
-                                                        stroke-linejoin="round" stroke-width="1.5"
-                                                        d="M14.54 10.105h5.533c2.546 0-.764 10.895-2.588 10.895H4.964A.956.956 0 0 1 4 20.053v-9.385c0-.347.193-.666.502-.832C6.564 8.73 8.983 7.824 10.18 5.707l1.28-2.266A.87.87 0 0 1 12.222 3c3.18 0 2.237 4.63 1.805 6.47a.52.52 0 0 0 .513.635" />
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24">
+                                                    <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M14.54 10.105h5.533c2.546 0-.764 10.895-2.588 10.895H4.964A.956.956 0 0 1 4 20.053v-9.385c0-.347.193-.666.502-.832C6.564 8.73 8.983 7.824 10.18 5.707l1.28-2.266A.87.87 0 0 1 12.222 3c3.18 0 2.237 4.63 1.805 6.47a.52.52 0 0 0 .513.635"/>
                                                 </svg>
-                                            @break
-
+                                                @break
                                             @case('downvotes')
                                                 <!-- SVG Icon for Downvotes -->
-                                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
-                                                    viewBox="0 0 24 24">
-                                                    <path fill="none" stroke="currentColor" stroke-linecap="round"
-                                                        stroke-linejoin="round" stroke-width="1.5"
-                                                        d="M10.46 13.895H4.927C2.381 13.895 5.691 3 7.515 3h12.521c.532 0 .964.424.964.947v9.385a.95.95 0 0 1-.502.832c-2.062 1.106-4.481 2.012-5.678 4.129l-1.28 2.266a.87.87 0 0 1-.762.441c-3.18 0-2.237-4.63-1.805-6.47a.52.52 0 0 0-.513-.635" />
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24">
+                                                    <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M10.46 13.895H4.927C2.381 13.895 5.691 3 7.515 3h12.521c.532 0 .964.424.964.947v9.385a.95.95 0 0 1-.502.832c-2.062 1.106-4.481 2.012-5.678 4.129l-1.28 2.266a.87.87 0 0 1-.762.441c-3.18 0-2.237-4.63-1.805-6.47a.52.52 0 0 0-.513-.635"/>
                                                 </svg>
-                                            @break
-
+                                                @break
                                             @case('oldest')
                                                 <!-- SVG Icon for Oldest -->
-                                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
-                                                    viewBox="0 0 24 24">
-                                                    <path fill="currentColor"
-                                                        d="M12 22q-1.875 0-3.512-.712t-2.85-1.925t-1.925-2.85T3 13t.713-3.512t1.924-2.85t2.85-1.925T12 4t3.513.713t2.85 1.925t1.925 2.85T21 13t-.712 3.513t-1.925 2.85t-2.85 1.925T12 22m2.8-4.8l1.4-1.4l-3.2-3.2V8h-2v5.4zM5.6 2.35L7 3.75L2.75 8l-1.4-1.4zm12.8 0l4.25 4.25l-1.4 1.4L17 3.75z" />
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24">
+                                                    <path fill="currentColor" d="M12 22q-1.875 0-3.512-.712t-2.85-1.925t-1.925-2.85T3 13t.713-3.512t1.924-2.85t2.85-1.925T12 4t3.513.713t2.85 1.925t1.925 2.85T21 13t-.712 3.513t-1.925 2.85t-2.85 1.925T12 22m2.8-4.8l1.4-1.4l-3.2-3.2V8h-2v5.4zM5.6 2.35L7 3.75L2.75 8l-1.4-1.4zm12.8 0l4.25 4.25l-1.4 1.4L17 3.75z"/>
                                                 </svg>
-                                            @break
+                                                @break
                                         @endswitch
                                         {{ $sortLabel }}
                                     </a>
@@ -345,41 +289,10 @@
 
 
                 @foreach ($question as $info)
-                    <div class="card" style="margin-bottom: 10px!important;" id="question-{{ $info->id_question }}">
+                    <div class="card" style="margin-bottom: 10px!important;">
                         @include('home.question')
                     </div>
                 @endforeach
-
-                <script>
-                    document.addEventListener("DOMContentLoaded", function() {
-                        // Ambil query parameter dari URL
-                        const urlParams = new URLSearchParams(window.location.search);
-                        const focusId = urlParams.get('focus');
-
-                        // Cek apakah parameter 'focus' ada
-                        if (focusId) {
-                            // Cari elemen berdasarkan ID
-                            const element = document.getElementById(`question-${focusId}`);
-
-                            if (element) {
-                                // Scroll ke elemen dengan animasi halus
-                                element.scrollIntoView({
-                                    behavior: 'smooth',
-                                    block: 'center'
-                                });
-
-                                // Berikan efek sorotan untuk menandai elemen dengan box shadow
-                                element.style.transition = 'box-shadow 0.5s';
-                                element.style.boxShadow = '0 0 10px 5px rgba(66, 153, 225, 0.7)'; // Warna shadow sementara
-
-                                // Kembalikan shadow ke semula setelah 2 detik
-                                setTimeout(() => {
-                                    element.style.boxShadow = '';
-                                }, 2000);
-                            }
-                        }
-                    });
-                </script>
             </div>
 
             <div class="col-lg-1 call-to-action sticky" style="height: min-content;">
@@ -542,7 +455,7 @@
                     <div class="modal-footer">
                         <button type="button" class="btn btn-ghost-secondary btn-pill" data-bs-dismiss="modal"
                             id="cancelButton">Cancel</button>
-                        <button type="submit" class="btn btn-primary btn-pill">Save</button>
+                        <button type="submit" class="btn btn-primary btn-pill">Post</button>
                     </div>
                 </form>
             </div>

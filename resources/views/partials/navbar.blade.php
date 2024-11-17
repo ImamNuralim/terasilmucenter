@@ -33,7 +33,11 @@
 
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.12.4/dist/sweetalert2.all.min.js"></script>
     <link href="https://cdn.jsdelivr.net/npm/sweetalert2@11.12.4/dist/sweetalert2.min.css" rel="stylesheet">
+
 </head>
+<style>
+
+</style>
 
 <body>
     <div class="page">
@@ -214,6 +218,15 @@
                 sessionStorage.removeItem('scrollPosition');
             }
         });
+        if ('serviceWorker' in navigator) {
+        navigator.serviceWorker.register('/serviceworker.js')
+            .then(function(registration) {
+                console.log('Service Worker registered with scope:', registration.scope);
+            })
+            .catch(function(error) {
+                console.log('Service Worker registration failed:', error);
+            });
+    }
     </script>
 </body>
 
