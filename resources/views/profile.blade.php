@@ -155,7 +155,7 @@
                         <span>
                             <!-- Tampilkan gambar dari database atau gambar default jika tidak ada gambar -->
                             @if ($data->gambar)
-                            <img class="avatar avatar rounded-circle"
+                            <img class="avatar avatar-xl rounded-circle"
                                 src="data:image/png;base64,{{ $data->gambar }}"
                                 alt=""
                                 style="background-color: #DBE7F9; object-fit: cover;">
@@ -170,15 +170,15 @@
                     <div class="col-9">
                         <div class="row">
                             <div class="col-12">
-                                <b class="nama" style="font-size: 27px;">
+                                <b style="font-size: 27px;">
                                     <p style="margin-bottom: 0;">{{ $data->nama }}</p>
                                 </b>
-                                <b class="email" style="font-size: 20px">
+                                <b style="font-size: 20px">
                                     <p>{{ $data->email }}</p>
                                 </b>
-                                <a class="edit" href="#" data-bs-toggle="modal" data-bs-target="#profileModal">Edit profile</a>
+                                <a href="#" data-bs-toggle="modal" data-bs-target="#profileModal">Edit profile</a>
                                 <a class="text-primary"> | </a>
-                                <a class="edit" href="#" data-bs-toggle="modal" data-bs-target="#passwordModal">Edit password</a>
+                                <a href="#" data-bs-toggle="modal" data-bs-target="#passwordModal">Edit password</a>
                                 @if ($data->deskripsi)
                                 <a class="text-primary"> | </a>
                                 <a class="text-primary" href="#" data-bs-toggle="modal" data-bs-target="#confirmDeleteModal">Hapus deskripsi</a>
@@ -196,7 +196,7 @@
                     <br></br>
                     @else
                     <!-- Jika deskripsi null, tampilkan teks untuk menulis deskripsi -->
-                    <a class="deskripsi" href="#" class="text-secondary" data-bs-toggle="modal" data-bs-target="#deskripsiModal">
+                    <a href="#" class="text-secondary" data-bs-toggle="modal" data-bs-target="#deskripsiModal">
                         Write a description about yourself <i class="fa-solid fa-pen-to-square"></i>
                     </a>
                     @endif
@@ -653,7 +653,7 @@
                 @endif
 
             </div>
-            <div class="col-1">
+            <div class="col-2">
 
             </div>
             <div class="col-4">

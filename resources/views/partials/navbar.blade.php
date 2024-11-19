@@ -122,11 +122,11 @@
                             data-bs-toggle="dropdown">
                             <span class="avatar avatar-sm rounded-circle">
                                 @if (isset($data) && $data->gambar)
-                                    <img class="avatar avatar-sm rounded-circle"
+                                    <img class="avatar user-avatar avatar-sm rounded-circle"
                                         src="data:image/png;base64,{{ $data->gambar }}" alt=""
                                         style="background-color: #DBE7F9; object-fit: cover;">
                                 @else
-                                    <img class="avatar avatar-sm rounded-circle" src="{{ asset('img/user2.png') }}"
+                                    <img class="avatar user-avatar avatar-sm rounded-circle" src="{{ asset('img/user2.png') }}"
                                         alt="" style="background-color: #DBE7F9; object-fit: cover;">
                                 @endif
                             </span>

@@ -101,10 +101,7 @@
         }
 
         @media (max-width: 766px) {
-            .dropdown{
-                margin-top: -18px !important;
-                padding-bottom: 10px;
-            }
+
             .dropdown-toggle {
                 display: block;
             }
