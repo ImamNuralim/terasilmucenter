@@ -62,7 +62,7 @@
             <div class="card-body">
               <h5 class="card-title">AL-Quran</h5>
               <p class="card-text">Baca Alquran Disini.</p>
-              <a href="{{ route('kitab.surah') }}" class="btn btn-primary">Go somewhere</a>
+              <a href="{{ route('kitab.surah') }}" class="btn btn-primary">Pelajari AL-Quran disini</a>
             </div>
           </div>
         </div>
@@ -71,7 +71,7 @@
             <div class="card-body">
               <h5 class="card-title">Hadits</h5>
               <p class="card-text">Pelajari Hadits Disini.</p>
-              <a href="{{ route('hadith') }}" class="btn btn-primary">Go somewhere</a>
+              <a href="{{ route('hadith') }}" class="btn btn-primary">Pelajari Hadits disini</a>
             </div>
           </div>
         </div>
@@ -80,7 +80,7 @@
               <div class="card-body">
                 <h5 class="card-title">Doa Harian</h5>
                 <p class="card-text">Pelajari Hadits Disini.</p>
-                <a href="{{ route('kitab.doa') }}" class="btn btn-primary">Go somewhere</a>
+                <a href="{{ route('kitab.doa') }}" class="btn btn-primary">Pelajari Doa Harian disini</a>
               </div>
             </div>
           </div>
@@ -89,7 +89,7 @@
               <div class="card-body">
                 <h5 class="card-title">Kalkulator Zakat</h5>
                 <p class="card-text">Pelajari Kalkulator Zakat Disini.</p>
-                <a href="{{ route('kitab.kalkulator') }}" class="btn btn-primary">Go somewhere</a>
+                <a href="{{ route('kitab.kalkulator') }}" class="btn btn-primary">Buka Kalkulator Zakat disini</a>
               </div>
             </div>
           </div>

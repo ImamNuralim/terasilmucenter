@@ -15,7 +15,7 @@ return new class extends Migration
         Schema::create('question', function (Blueprint $table) {
             $table->id('id_question');
             $table->string('username', 20);
-            $table->enum('kategori', ['Sholat', 'Nikah', 'Puasa', 'Zakat']);
+            $table->enum('kategori', ['Aqidah', 'Fiqih', 'Sirah', 'Lainnya']);
             $table->text('deskripsi')->nullable();
             $table->timestamps();
 

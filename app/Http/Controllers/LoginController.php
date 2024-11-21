@@ -27,6 +27,17 @@ class LoginController extends Controller
         // Cari user berdasarkan username
         $user = Auth::getProvider()->retrieveByCredentials($credentials);
 
+        if ($user) {
+            // Reset status is_online jika user kehilangan sesi
+            if ($user->role === 'murid') {
+                Murid::where('username', $user->username)->update(['is_online' => false]);
+            } elseif ($user->role === 'ustaz') {
+                Ustaz::where('username', $user->username)->update(['is_online' => false]);
+            } elseif ($user->role === 'umum') {
+                Umum::where('username', $user->username)->update(['is_online' => false]);
+            }
+        }
+
         if ($user && $user->role === 'murid') {
             $murid = Murid::where('username', $user->username)->first();
             if ($murid && $murid->is_online) {
@@ -65,6 +76,7 @@ class LoginController extends Controller
             'username' => 'The provided credentials do not match our records.',
         ]);
     }
+
 
     protected function redirectTo()
     {

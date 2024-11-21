@@ -82,7 +82,7 @@
                 <form id="uploadVideoForm" action="{{ route('ustaz.createvideo') }}" method="POST">
                     @csrf
                     <div class="modal-header">
-                        <b>Create Video</b>
+                        <b>Buat Materi Video</b>
                     </div>
                     <div class="modal-body">
                         <div class="mb-3">

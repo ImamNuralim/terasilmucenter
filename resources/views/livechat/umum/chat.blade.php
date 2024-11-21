@@ -76,7 +76,7 @@
 
     <!-- Chat Messages -->
     @if($hasActiveSession)
-    <div class="chat-container" style="max-width: 900px; margin: auto; padding: 20px; background-color: ghostwhite; overflow-y: auto; height: 60vh;">
+    <div class="chat-container" style="max-width: 900px; margin: auto; padding: 20px; background-color: ghostwhite; overflow-y: auto; height: 40vh;">
         <script>
             document.addEventListener('DOMContentLoaded', function() {
                 const chatContainer = document.getElementById('chat-container');
@@ -203,7 +203,7 @@
     </div>
 
     <!-- Send New Message -->
-    <div class="mt-4" style="max-width: 900px; margin: auto;">
+    <div class="mt-2" style="max-width: 900px; margin: auto;">
         <form id="message-form" method="POST">
             @csrf
             <input type="hidden" name="id_livechat" value="{{ $livechat->id_livechat }}">

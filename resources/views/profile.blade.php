@@ -86,7 +86,11 @@
         background-color: unset !important;
     }
     @media(max-width: 480px){
-        .avatar{
+        .credential{
+            font-size: 10px !important;
+        }
+        .avatar2{
+
             width: 30px;
             height: 30px;
         }
@@ -106,6 +110,12 @@
         }
         .deskripsi{
             font-size: 11px !important
+        }
+        .about{
+            font-size: 11px !important
+        }
+        .edit_password{
+            font-size: 12px !important
         }
     }
 
@@ -147,20 +157,20 @@
 </script>
 
 <div>
-    <div class="mt-4">
+    <div class="mt-3">
         <div class="row">
-            <div class="col-6">
+            <div class="col-7">
                 <div class="row">
                     <div class="col-3">
                         <span>
                             <!-- Tampilkan gambar dari database atau gambar default jika tidak ada gambar -->
                             @if ($data->gambar)
-                            <img class="avatar avatar-xl rounded-circle"
+                            <img class="avatar2 avatar-xl rounded-circle"
                                 src="data:image/png;base64,{{ $data->gambar }}"
                                 alt=""
                                 style="background-color: #DBE7F9; object-fit: cover;">
                             @else
-                            <img class="avatar avatar-xl rounded-circle"
+                            <img class="avatar2 avatar-xl rounded-circle"
                                 src="{{ asset('img/user2.png') }}"
                                 alt=""
                                 style="background-color: #DBE7F9;">
@@ -170,15 +180,15 @@
                     <div class="col-9">
                         <div class="row">
                             <div class="col-12">
-                                <b style="font-size: 27px;">
+                                <b class="nama" style="font-size: 27px;">
                                     <p style="margin-bottom: 0;">{{ $data->nama }}</p>
                                 </b>
-                                <b style="font-size: 20px">
+                                <b class="email" style="font-size: 20px">
                                     <p>{{ $data->email }}</p>
                                 </b>
-                                <a href="#" data-bs-toggle="modal" data-bs-target="#profileModal">Edit profile</a>
+                                <a class="edit_password"  href="#" data-bs-toggle="modal" data-bs-target="#profileModal">Edit profile</a>
                                 <a class="text-primary"> | </a>
-                                <a href="#" data-bs-toggle="modal" data-bs-target="#passwordModal">Edit password</a>
+                                <a class="edit_password" href="#" data-bs-toggle="modal" data-bs-target="#passwordModal">Edit password</a>
                                 @if ($data->deskripsi)
                                 <a class="text-primary"> | </a>
                                 <a class="text-primary" href="#" data-bs-toggle="modal" data-bs-target="#confirmDeleteModal">Hapus deskripsi</a>
@@ -196,8 +206,8 @@
                     <br></br>
                     @else
                     <!-- Jika deskripsi null, tampilkan teks untuk menulis deskripsi -->
-                    <a href="#" class="text-secondary" data-bs-toggle="modal" data-bs-target="#deskripsiModal">
-                        Write a description about yourself <i class="fa-solid fa-pen-to-square"></i>
+                    <a class="about" href="#" class="text-secondary" data-bs-toggle="modal" data-bs-target="#deskripsiModal">
+                        Tuliskan deskripsi tentang diri anda <i class="fa-solid fa-pen-to-square"></i>
                     </a>
                     @endif
                 </div>
@@ -205,20 +215,21 @@
 
                 <div class="mt-4">
                     <div class="row text-center">
-                        <div class="col-3">
-                            <h3 href="" class="text-danger text-secondary">Answers</h3>
+                        <div class="col-4"> <!-- Lebih lebar untuk Answers -->
+                            <h3 class="text-danger text-secondary">Komentar</h3>
                         </div>
-                        <div class="col-3">
-                            <h3 href="" class="text-danger text-secondary">Questions</h3>
+                        <div class="col-4"> <!-- Lebih lebar untuk Questions -->
+                            <h3 class="text-danger text-secondary">Postingan</h3>
                         </div>
-                        <div class="col-3">
-                            <h3 href="" class="text-danger text-secondary">Followers</h3>
+                        <div class="col-2"> <!-- Lebih kecil untuk Followers -->
+                            <h3 class="text-danger text-secondary">Followers</h3>
                         </div>
-                        <div class="col-3">
-                            <h3 href="" class="text-danger text-secondary">Following</h3>
+                        <div class="col-2"> <!-- Lebih kecil untuk Following -->
+                            <h3 class="text-danger text-secondary">Following</h3>
                         </div>
                     </div>
                 </div>
+
                 <hr class="mt-3 mb-3">
                 <div class="mt-4">
                     <div class="row text-center">
@@ -653,12 +664,10 @@
                 @endif
 
             </div>
-            <div class="col-2">
 
-            </div>
-            <div class="col-4">
-                <div>
-                    Credentials & Highlights
+            <div class="col-4 ms-auto">
+                <div class="credential" style="padding-left:-15px; width:100%">
+                    Kredensial & Sorotan
                     <span class="float-end">
                         <a href="#" data-bs-toggle="modal" data-bs-target="#credentialsModal">
                             <svg role="button" xmlns="http://www.w3.org/2000/svg"
@@ -686,9 +695,9 @@
                             <path d="M3 13a20 20 0 0 0 18 0"></path>
                         </svg>
                         @if ($data->pekerjaan)
-                        Pekerjaan: {{ $data->pekerjaan }}
+                        {{ $data->pekerjaan }}
                         @else
-                        Add employment credential
+                        Tambahkan Pekerjaan
                         @endif
                     </div>
                     <div class="mt-3">
@@ -700,9 +709,9 @@
                             <path d="M6 10.6v5.4a6 3 0 0 0 12 0v-5.4"></path>
                         </svg>
                         @if ($data->pendidikan)
-                        Pendidikan: {{ $data->pendidikan }}
+                        {{ $data->pendidikan }}
                         @else
-                        Add education credential
+                        Tambahkan Pendidikan
                         @endif
                     </div>
                     <div class="mt-3">
@@ -714,7 +723,11 @@
                             <path d="M17.657 16.657l-4.243 4.243a2 2 0 0 1 -2.827 0l-4.244 -4.243a8 8 0 1 1 11.314 0z">
                             </path>
                         </svg>
-                        Alamat: {{ $data->alamat }}
+                        @if ($data->alamat)
+                        {{ $data->alamat }}
+                        @else
+                        Alamat
+                        @endif
                     </div>
                     <div class="mt-3">
                         <svg xmlns="http://www.w3.org/2000/svg" class="me-1 icon icon-tabler icon-tabler-calendar"
@@ -840,17 +853,17 @@
                     <div class="modal-body">
                         <!-- Employment Field -->
                         <div class="mb-3">
-                            <label for="pekerjaan" class="form-label">Employment</label>
+                            <label for="pekerjaan" class="form-label">Pekerjaan</label>
                             <input type="text" class="form-control" id="pekerjaan" name="pekerjaan" placeholder="{{ $data->pekerjaan ? $data->pekerjaan : 'Tambahkan pekerjaan anda saat ini' }}">
                         </div>
                         <!-- Education Field -->
                         <div class="mb-3">
-                            <label for="pendidikan" class="form-label">Education</label>
+                            <label for="pendidikan" class="form-label">EPendidikan</label>
                             <input type="text" class="form-control" id="pendidikan" name="pendidikan" placeholder="{{ $data->pendidikan ? $data->pendidikan : 'Tambahkan pendidikan terakhir anda' }}">
                         </div>
                         <!-- Location Field -->
                         <div class="mb-3 position-relative">
-                            <label for="alamat" class="form-label">Location</label>
+                            <label for="alamat" class="form-label">Alamat</label>
                             <input type="text" class="form-control" id="alamat" name="alamat" placeholder="{{ $data->alamat }}">
                             <ul id="suggestions" class="list-group mt-2"></ul>
                         </div>
@@ -984,7 +997,7 @@
                                     <img id="avatarPreview"
                                         src="{{ $data->gambar ? 'data:image/png;base64,' . $data->gambar : asset('img/user2.png') }}"
                                         alt=""
-                                        class="avatar avatar-lg rounded-circle">
+                                        class="avatar2 avatar-lg rounded-circle">
                                 </div>
                             </div>
                             <div class="col-10">

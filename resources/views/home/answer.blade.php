@@ -473,7 +473,7 @@
 
 <!-- Form untuk Menambahkan Komentar Baru atau Reply -->
 <div class="add-comment p-3 border rounded" style="margin-top: 10px;">
-    <h5 id="judulForm-{{ $info->id_question }}">Add an Answer</h5>
+    <h5 id="judulForm-{{ $info->id_question }}">Tambahkan Komentar</h5>
     <form id="answerForm-{{ $info->id_question }}" action="{{ route(auth()->user()->role . '.createanswer', $info->id_question ) }}" method="POST" enctype="multipart/form-data">
         @csrf
         <input type="hidden" name="id_question" value="{{ $info->id_question }}">

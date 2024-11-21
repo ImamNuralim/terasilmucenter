@@ -1,16 +1,28 @@
 document.addEventListener('DOMContentLoaded', function () {
+    let allDoas = []; // Tempat menyimpan semua doa
+    const searchInput = document.getElementById('search-bar');
+
     // Fungsi untuk mengambil data dari API
     fetch('https://islamic-api-zhirrr.vercel.app/api/doaharian')
         .then(response => response.json()) // Mengonversi response ke JSON
         .then(data => {
             console.log(data); // Log data untuk memastikan format
-            // Memanggil fungsi untuk menampilkan data
-            renderDoas(data.data); // Sesuaikan dengan struktur data API
+            allDoas = data.data || []; // Menyimpan data doa yang diterima
+            renderDoas(allDoas); // Menampilkan doa tanpa filter pada awalnya
         })
         .catch(error => {
             console.error('Error fetching data:', error);
             document.getElementById('doa-container').innerHTML = '<p>Gagal memuat data doa.</p>';
         });
+
+    // Menambahkan event listener untuk mencari doa
+    searchInput.addEventListener('input', function() {
+        const searchTerm = searchInput.value.toLowerCase(); // Ambil kata kunci pencarian
+        const filteredDoas = allDoas.filter(doa => {
+            return doa.title.toLowerCase().includes(searchTerm) || doa.latin.toLowerCase().includes(searchTerm);
+        });
+        renderDoas(filteredDoas); // Tampilkan doa yang difilter
+    });
 });
 
 // Fungsi untuk menampilkan data

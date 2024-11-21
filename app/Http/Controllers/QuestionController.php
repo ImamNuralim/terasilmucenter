@@ -17,7 +17,7 @@ class QuestionController extends Controller
         //dd($request->all());
         // Validasi data yang diterima
         $request->validate([
-            'kategori' => 'required|in:Sholat,Nikah,Puasa,Zakat',
+            'kategori' => 'required|in:Aqidah,Fikih,Sirah,Lainnya',
             'deskripsi' => 'required|string',
             'image' => 'nullable|image|mimes:jpeg,png,jpg|max:20480'
         ]);
@@ -53,7 +53,7 @@ class QuestionController extends Controller
     {
         // Validasi data yang diterima
         $request->validate([
-            'kategori' => 'nullable|in:Sholat,Nikah,Puasa,Zakat',
+            'kategori' => 'nullable|in:Aqidah,Fikih,Sirah,Lainnya',
             'deskripsi' => 'nullable|string',
             'image' => 'nullable|image|mimes:jpeg,png,jpg|max:20480'
         ]);
@@ -65,7 +65,7 @@ class QuestionController extends Controller
         }
         // dd($request->all());
 
-        // Persiapkan array update untuk data 
+        // Persiapkan array update untuk data
         $editQuestion = [];
         if ($request->filled('kategori')) {
             $editQuestion['kategori'] = $request->input('kategori');
@@ -83,7 +83,7 @@ class QuestionController extends Controller
 
         // dd($editQuestion);
 
-        // Update data 
+        // Update data
         if (!empty($editQuestion)) {
             $question->update($editQuestion);
         }

@@ -41,6 +41,7 @@
 
 <body>
     <div class="page">
+
         <header class="navbar navbar-expand-md navbar-light sticky-top d-print-none">
             <div class="container">
                 <h1 class="navbar-brand text-info navbar-brand-autodark d-none-navbar-horizontal pe-0 pe-md-3">
@@ -53,7 +54,7 @@
                         <div class="btn-items">
                             <!-- Home -->
                             <a href="{{ auth()->check() ? route(auth()->user()->role . '.home') : route('guest.home') }}"
-                                class="btn-item btn btn-outline-info border-info {{ request()->routeIs(auth()->check() ? auth()->user()->role . '.home*' : 'guest.home') ? 'active' : '' }}">
+                                class="btn-item btn btn-outline-info border-info {{ request()->routeIs(auth()->check() ? auth()->user()->role . '.home*' : 'guest.home') ? 'active' : '' }}" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Beranda">
                                 <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-home"
                                     width="24" height="24" viewBox="0 0 24 24" stroke-width="2"
                                     stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"
@@ -66,7 +67,7 @@
                             </a>
                             <!-- Kitab -->
                             <a href="{{ auth()->check() ? route(auth()->user()->role . '.kitab') : '#' }}"
-                                class="btn-item btn btn-outline-info border-info {{ request()->routeIs(auth()->check() ? auth()->user()->role . '.kitab' : '') ? 'active' : '' }}">
+                                class="btn-item btn btn-outline-info border-info {{ request()->routeIs(auth()->check() ? auth()->user()->role . '.kitab' : '') ? 'active' : '' }}" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Kitab">
                                 <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-book"
                                     width="24" height="24" viewBox="0 0 24 24" stroke-width="2"
                                     stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"
@@ -81,7 +82,7 @@
                             </a>
                             <!-- Materi Video -->
                             <a href="{{ auth()->check() ? route(auth()->user()->role . '.video') : '#' }}"
-                                class="btn-item btn btn-outline-info border-info {{ request()->routeIs(auth()->check() ? auth()->user()->role . '.video' : '') ? 'active' : '' }}">
+                                class="btn-item btn btn-outline-info border-info {{ request()->routeIs(auth()->check() ? auth()->user()->role . '.video' : '') ? 'active' : '' }}" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Materi Video">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
                                     viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
                                     stroke-linecap="round" stroke-linejoin="round"
@@ -100,7 +101,7 @@
                             </a>
                             <!-- Live Chat -->
                             <a href="{{ auth()->check() ? route(auth()->user()->role . '.livechat') : '#' }}"
-                                class="btn-item btn btn-outline-info border-info {{ request()->routeIs(auth()->check() ? auth()->user()->role . '.livechat' : '') ? 'active' : '' }}">
+                                class="btn-item btn btn-outline-info border-info {{ request()->routeIs(auth()->check() ? auth()->user()->role . '.livechat' : '') ? 'active' : '' }}" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Live Chat">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
                                     viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
                                     stroke-linecap="round" stroke-linejoin="round"
@@ -117,7 +118,7 @@
 
                     <!-- Pengecekan untuk dropdown -->
                     @if (auth()->check())
-                    <div class="nav-item dropdown d-md-flex me-3">
+                    <div class="nav-item dropdown d-md-flex me-3" title="Profile" data-bs-toggle="tooltip" data-bs-placement="bottom">
                         <a id="dropdown" href="#" class="nav-link d-flex lh-1 text-reset p-0"
                             data-bs-toggle="dropdown">
                             <span class="avatar avatar-sm rounded-circle">
@@ -175,8 +176,6 @@
                 @yield('profile')
                 @yield('viewProfile')
                 @yield('doa')
-                @yield('kalkulator')
-
             </div>
         </div>
     </div>
@@ -227,6 +226,14 @@
                 console.log('Service Worker registration failed:', error);
             });
     }
+    // Inisialisasi tooltip untuk seluruh elemen dengan data-bs-toggle="tooltip"
+document.addEventListener('DOMContentLoaded', function () {
+    const tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
+    const tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+        return new bootstrap.Tooltip(tooltipTriggerEl);
+    });
+});
+
     </script>
 </body>
 

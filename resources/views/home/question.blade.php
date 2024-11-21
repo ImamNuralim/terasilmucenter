@@ -188,7 +188,7 @@
                         $output = $updatedAt->diffForHumans();
                         } elseif ($isYesterday) {
                         // Tampilkan 'yesterday' untuk pembaruan kemarin
-                        $output = 'yesterday';
+                        $output = 'kemarin';
                         } else {
                         // Tampilkan tanggal jika lebih dari 1 hari
                         $output = $updatedAt->format('d M Y');
@@ -198,7 +198,7 @@
                         <div>
                             <a>
                                 @if ($info->created_at != $info->updated_at)
-                                (edited) {{ $output }}
+                                (diubah) {{ $output }}
                                 @else
                                 {{ $output }}
                                 @endif
@@ -242,7 +242,7 @@
                 </div>
 
                 <div class="mt-1">
-                    <small class="text-secondary">{{ $info->answer->count() }} answer</small>
+                    <small class="text-secondary">{{ $info->answer->count() }} komentar</small>
                 </div>
 
                 <div class="mt-2">
@@ -251,26 +251,48 @@
                         @csrf
                         <input type="hidden" name="vote_type" value="UpVote">
                         <button type="submit" class="border-0 bg-transparent p-0 {{ $info->vote && $info->vote->contains('username', auth()->user()->username) && $info->vote->firstWhere('username', auth()->user()->username)->vote_type === 'UpVote' ? 'active' : '' }}">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 256 256">
-                                <path fill="currentColor" d="M234 80.12A24 24 0 0 0 216 72h-56V56a40 40 0 0 0-40-40a8 8 0 0 0-7.16 4.42L75.06 96H32a16 16 0 0 0-16 16v88a16 16 0 0 0 16 16h172a24 24 0 0 0 23.82-21l12-96A24 24 0 0 0 234 80.12M32 112h40v88H32Zm191.94-15l-12 96a8 8 0 0 1-7.94 7H88v-94.11l36.71-73.43A24 24 0 0 1 144 56v24a8 8 0 0 0 8 8h64a8 8 0 0 1 7.94 9"/>
-                            </svg>
+
+                            {{-- Cek apakah sudah upvote, jika sudah tampilkan ikon yang berbeda --}}
+                            @if($info->vote && $info->vote->contains('username', auth()->user()->username) && $info->vote->firstWhere('username', auth()->user()->username)->vote_type === 'UpVote')
+                                <!-- Ikon yang ditampilkan setelah upvote -->
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24">
+                                    <path d="M4 21h1V8H4a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2zM20 8h-7l1.122-3.368A2 2 0 0 0 12.225 2H12L7 7.438V21h11l3.912-8.596L22 12v-2a2 2 0 0 0-2-2z" fill="#4299E1"/>
+                                </svg>
+                            @else
+                                <!-- Ikon yang ditampilkan sebelum upvote -->
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 256 256">
+                                    <path fill="currentColor" d="M234 80.12A24 24 0 0 0 216 72h-56V56a40 40 0 0 0-40-40a8 8 0 0 0-7.16 4.42L75.06 96H32a16 16 0 0 0-16 16v88a16 16 0 0 0 16 16h172a24 24 0 0 0 23.82-21l12-96A24 24 0 0 0 234 80.12M32 112h40v88H32Zm191.94-15l-12 96a8 8 0 0 1-7.94 7H88v-94.11l36.71-73.43A24 24 0 0 1 144 56v24a8 8 0 0 0 8 8h64a8 8 0 0 1 7.94 9"/>
+                                </svg>
+                            @endif
+
                             {{ $info->upvotes_count }}
                         </button>
-
                     </form>
+
 
                     <!-- Vote Down Button -->
                     <form action="{{ route(auth()->user()->role . '.vote', $info->id_question) }}" method="POST" style="display:inline;">
                         @csrf
                         <input type="hidden" name="vote_type" value="DownVote">
                         <button type="submit" class="border-0 bg-transparent p-0 {{ $info->vote && $info->vote->contains('username', auth()->user()->username) && $info->vote->firstWhere('username', auth()->user()->username)->vote_type === 'DownVote' ? 'active' : '' }}">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 256 256">
-                                <path fill="currentColor" d="m239.82 157l-12-96A24 24 0 0 0 204 40H32a16 16 0 0 0-16 16v88a16 16 0 0 0 16 16h43.06l37.78 75.58A8 8 0 0 0 120 240a40 40 0 0 0 40-40v-16h56a24 24 0 0 0 23.82-27M72 144H32V56h40Zm150 21.29a7.88 7.88 0 0 1-6 2.71h-64a8 8 0 0 0-8 8v24a24 24 0 0 1-19.29 23.54L88 150.11V56h116a8 8 0 0 1 7.94 7l12 96a7.87 7.87 0 0 1-1.94 6.29"/>
-                            </svg>
+
+                            {{-- Cek apakah sudah downvote, jika sudah tampilkan ikon yang berbeda --}}
+                            @if($info->vote && $info->vote->contains('username', auth()->user()->username) && $info->vote->firstWhere('username', auth()->user()->username)->vote_type === 'DownVote')
+                                <!-- Ikon yang ditampilkan setelah downvote dengan warna biru info -->
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24">
+                                    <path d="M20 3h-1v13h1a2 2 0 0 0 2-2V5a2 2 0 0 0-2-2zM4 16h7l-1.122 3.368A2 2 0 0 0 11.775 22H12l5-5.438V3H6l-3.937 8.649l-.063.293V14a2 2 0 0 0 2 2z" fill="#4299E1"/>
+                                </svg>
+                            @else
+                                <!-- Ikon yang ditampilkan sebelum downvote dengan warna biru info -->
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 256 256">
+                                    <path fill="currentColor" d="m239.82 157l-12-96A24 24 0 0 0 204 40H32a16 16 0 0 0-16 16v88a16 16 0 0 0 16 16h43.06l37.78 75.58A8 8 0 0 0 120 240a40 40 0 0 0 40-40v-16h56a24 24 0 0 0 23.82-27M72 144H32V56h40Zm150 21.29a7.88 7.88 0 0 1-6 2.71h-64a8 8 0 0 0-8 8v24a24 24 0 0 1-19.29 23.54L88 150.11V56h116a8 8 0 0 1 7.94 7l12 96a7.87 7.87 0 0 1-1.94 6.29"/>
+                                </svg>
+                            @endif
+
                             {{ $info->downvotes_count }}
                         </button>
-
                     </form>
+
 
                     <button id="answerButton{{ $info->id_question }}" class="border-0 bg-transparent p-0">
                         <svg xmlns="http://www.w3.org/2000/svg"
@@ -393,10 +415,10 @@
                                             <div class="col-4">
                                                 <select id="editkategori{{ $info->id_question }}" name="kategori" class="form-control" style="color: #b2b2b3!important;">
                                                     <option value="" disabled selected>{{ $info->kategori }}</option>
-                                                    <option style="color: black!important;" value="Sholat" {{ $info->kategori == 'Sholat' ? 'disabled' : '' }}>Sholat</option>
-                                                    <option style="color: black!important;" value="Nikah" {{ $info->kategori == 'Nikah' ? 'disabled' : '' }}>Nikah</option>
-                                                    <option style="color: black!important;" value="Puasa" {{ $info->kategori == 'Puasa' ? 'disabled' : '' }}>Puasa</option>
-                                                    <option style="color: black!important;" value="Zakat" {{ $info->kategori == 'Zakat' ? 'disabled' : '' }}>Zakat</option>
+                                                    <option style="color: black!important;" value="Aqidah" {{ $info->kategori == 'Aqidah' ? 'disabled' : '' }}>Aqidah</option>
+                                                    <option style="color: black!important;" value="Fikih" {{ $info->kategori == 'Fikih' ? 'disabled' : '' }}>Fikih</option>
+                                                    <option style="color: black!important;" value="Sirah" {{ $info->kategori == 'Sirah' ? 'disabled' : '' }}>Sirah</option>
+                                                    <option style="color: black!important;" value="Lainnya" {{ $info->kategori == 'Lainnya' ? 'disabled' : '' }}>Lainnya</option>
                                                 </select>
                                             </div>
                                             <div class="col-8" style="display:flex; justify-content: flex-end;">
