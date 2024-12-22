@@ -17,7 +17,7 @@ class QuestionController extends Controller
         //dd($request->all());
         // Validasi data yang diterima
         $request->validate([
-            'kategori' => 'required|in:Aqidah,Fikih,Sirah,Lainnya',
+            'kategori' => 'required|in:Aqidah,Fiqih,Sirah,Lainnya',
             'deskripsi' => 'required|string',
             'image' => 'nullable|image|mimes:jpeg,png,jpg|max:20480'
         ]);
@@ -53,7 +53,7 @@ class QuestionController extends Controller
     {
         // Validasi data yang diterima
         $request->validate([
-            'kategori' => 'nullable|in:Aqidah,Fikih,Sirah,Lainnya',
+            'kategori' => 'nullable|in:Aqidah,Fiqih,Sirah,Lainnya',
             'deskripsi' => 'nullable|string',
             'image' => 'nullable|image|mimes:jpeg,png,jpg|max:20480'
         ]);

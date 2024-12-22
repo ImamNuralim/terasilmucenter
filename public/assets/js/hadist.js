@@ -50,12 +50,29 @@ function displayHadiths(hadiths) {
 }
 
 
-// Fungsi untuk mengupdate pagination
+// Fungsi untuk mengupdate pagination dengan format titik-titik
 function updatePagination(totalHadiths) {
     pagination.innerHTML = "";
-    const totalPages = Math.ceil(totalHadiths / hadithPerPage);
+    const totalPages = Math.ceil(totalHadiths / 10); // Menggunakan 10 sebagai jumlah data per halaman
+    const pageGroup = 5; // Menampilkan 5 halaman dalam satu grup
+    let startPage = Math.max(1, currentPage - Math.floor(pageGroup / 2));
+    let endPage = Math.min(totalPages, currentPage + Math.floor(pageGroup / 2));
 
-    for (let i = 1; i <= totalPages; i++) {
+    // Jika grup terakhir lebih kecil dari total halaman, geser grup ke kanan
+    if (endPage - startPage < pageGroup - 1) {
+        startPage = Math.max(1, endPage - (pageGroup - 1));
+    }
+
+    // Menampilkan halaman sebelumnya
+    if (startPage > 1) {
+        const prevButton = document.createElement('button');
+        prevButton.textContent = '<';
+        prevButton.addEventListener('click', () => loadPage(currentPage - 1));
+        pagination.appendChild(prevButton);
+    }
+
+    // Menampilkan halaman dengan titik-titik
+    for (let i = startPage; i <= endPage; i++) {
         const pageButton = document.createElement('button');
         pageButton.textContent = i;
 
@@ -66,6 +83,25 @@ function updatePagination(totalHadiths) {
         pageButton.addEventListener('click', () => loadPage(i));
         pagination.appendChild(pageButton);
     }
+
+    // Menampilkan halaman berikutnya
+    if (endPage < totalPages) {
+        const nextButton = document.createElement('button');
+        nextButton.textContent = '>';
+        nextButton.addEventListener('click', () => loadPage(currentPage + 1));
+        pagination.appendChild(nextButton);
+    }
+}
+
+// Fungsi untuk memuat halaman hadith berdasarkan nomor halaman
+function loadPage(page) {
+    currentPage = page;
+    const start = (page - 1) * 10; // Ambil data dimulai dari index yang sesuai
+    const end = page * 10; // Sampai 10 data per halaman
+
+    // Tampilkan 10 data untuk setiap halaman
+    displayHadiths(currentHadiths.slice(start, end));
+    updatePagination(currentHadiths.length);
 }
 
 // Fungsi untuk memuat halaman hadith berdasarkan nomor halaman

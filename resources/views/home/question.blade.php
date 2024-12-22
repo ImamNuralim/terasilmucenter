@@ -416,7 +416,7 @@
                                                 <select id="editkategori{{ $info->id_question }}" name="kategori" class="form-control" style="color: #b2b2b3!important;">
                                                     <option value="" disabled selected>{{ $info->kategori }}</option>
                                                     <option style="color: black!important;" value="Aqidah" {{ $info->kategori == 'Aqidah' ? 'disabled' : '' }}>Aqidah</option>
-                                                    <option style="color: black!important;" value="Fikih" {{ $info->kategori == 'Fikih' ? 'disabled' : '' }}>Fikih</option>
+                                                    <option style="color: black!important;" value="Fiqih" {{ $info->kategori == 'Fiqih' ? 'disabled' : '' }}>Fiqih</option>
                                                     <option style="color: black!important;" value="Sirah" {{ $info->kategori == 'Sirah' ? 'disabled' : '' }}>Sirah</option>
                                                     <option style="color: black!important;" value="Lainnya" {{ $info->kategori == 'Lainnya' ? 'disabled' : '' }}>Lainnya</option>
                                                 </select>

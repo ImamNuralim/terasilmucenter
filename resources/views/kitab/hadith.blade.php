@@ -186,6 +186,39 @@
       padding: 12px;
     }
   }
+  .pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px; /* Tambahkan margin agar lebih jarak antara konten dan pagination */
+}
+
+.pagination button {
+    margin: 0 5px; /* Jarak antar tombol pagination */
+    padding: 8px 12px; /* Ukuran tombol pagination */
+    border: 1px solid #9b9b9b; /* Warna border */
+    background-color: #aea7a7; /* Warna latar belakang tombol */
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.pagination button.active {
+    background-color: #007bff; /* Warna latar belakang tombol aktif */
+    color: white;
+}
+
+.pagination button:hover {
+    background-color: #ddd; /* Warna latar belakang ketika tombol dihover */
+}
+
+.pagination button:focus {
+    outline: none; /* Menghilangkan outline ketika tombol dipilih */
+}
+
+.pagination .prev, .pagination .next {
+    font-weight: bold; /* Membuat tombol sebelumnya dan berikutnya lebih tebal */
+}
+
 
   @media (max-width: 400px) {
     button {

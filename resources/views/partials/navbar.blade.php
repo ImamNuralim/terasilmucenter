@@ -7,6 +7,7 @@
     <meta name="description" content=".">
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>TIC</title>
+    @laravelPWA
     <link rel="shortcut icon" type="image/png" href="{{ asset('img/logoTSII.png') }}" />
     <link rel="stylesheet" href="../assets/css/styles.min.css" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/core@1.0.0-beta17/dist/css/tabler.min.css">
@@ -33,7 +34,10 @@
 
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.12.4/dist/sweetalert2.all.min.js"></script>
     <link href="https://cdn.jsdelivr.net/npm/sweetalert2@11.12.4/dist/sweetalert2.min.css" rel="stylesheet">
-
+    <!-- PWA  -->
+    <meta name="theme-color" content="#6777ef" />
+    <link rel="apple-touch-icon" href="{{ asset('logoTSII.png') }}">
+    <link rel="manifest" href="{{ asset('/manifest.json') }}">
 </head>
 <style>
 
@@ -54,7 +58,8 @@
                         <div class="btn-items">
                             <!-- Home -->
                             <a href="{{ auth()->check() ? route(auth()->user()->role . '.home') : route('guest.home') }}"
-                                class="btn-item btn btn-outline-info border-info {{ request()->routeIs(auth()->check() ? auth()->user()->role . '.home*' : 'guest.home') ? 'active' : '' }}" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Beranda">
+                                class="btn-item btn btn-outline-info border-info {{ request()->routeIs(auth()->check() ? auth()->user()->role . '.home*' : 'guest.home') ? 'active' : '' }}"
+                                data-bs-toggle="tooltip" data-bs-placement="bottom" title="Beranda">
                                 <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-home"
                                     width="24" height="24" viewBox="0 0 24 24" stroke-width="2"
                                     stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"
@@ -67,7 +72,8 @@
                             </a>
                             <!-- Kitab -->
                             <a href="{{ auth()->check() ? route(auth()->user()->role . '.kitab') : '#' }}"
-                                class="btn-item btn btn-outline-info border-info {{ request()->routeIs(auth()->check() ? auth()->user()->role . '.kitab' : '') ? 'active' : '' }}" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Kitab">
+                                class="btn-item btn btn-outline-info border-info {{ request()->routeIs(auth()->check() ? auth()->user()->role . '.kitab' : '') ? 'active' : '' }}"
+                                data-bs-toggle="tooltip" data-bs-placement="bottom" title="Kitab">
                                 <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-book"
                                     width="24" height="24" viewBox="0 0 24 24" stroke-width="2"
                                     stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"
@@ -82,7 +88,8 @@
                             </a>
                             <!-- Materi Video -->
                             <a href="{{ auth()->check() ? route(auth()->user()->role . '.video') : '#' }}"
-                                class="btn-item btn btn-outline-info border-info {{ request()->routeIs(auth()->check() ? auth()->user()->role . '.video' : '') ? 'active' : '' }}" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Materi Video">
+                                class="btn-item btn btn-outline-info border-info {{ request()->routeIs(auth()->check() ? auth()->user()->role . '.video' : '') ? 'active' : '' }}"
+                                data-bs-toggle="tooltip" data-bs-placement="bottom" title="Materi Video">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
                                     viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
                                     stroke-linecap="round" stroke-linejoin="round"
@@ -101,7 +108,8 @@
                             </a>
                             <!-- Live Chat -->
                             <a href="{{ auth()->check() ? route(auth()->user()->role . '.livechat') : '#' }}"
-                                class="btn-item btn btn-outline-info border-info {{ request()->routeIs(auth()->check() ? auth()->user()->role . '.livechat' : '') ? 'active' : '' }}" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Live Chat">
+                                class="btn-item btn btn-outline-info border-info {{ request()->routeIs(auth()->check() ? auth()->user()->role . '.livechat' : '') ? 'active' : '' }}"
+                                data-bs-toggle="tooltip" data-bs-placement="bottom" title="Live Chat">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
                                     viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
                                     stroke-linecap="round" stroke-linejoin="round"
@@ -118,44 +126,47 @@
 
                     <!-- Pengecekan untuk dropdown -->
                     @if (auth()->check())
-                    <div class="nav-item dropdown d-md-flex me-3" title="Profile" data-bs-toggle="tooltip" data-bs-placement="bottom">
-                        <a id="dropdown" href="#" class="nav-link d-flex lh-1 text-reset p-0"
-                            data-bs-toggle="dropdown">
-                            <span class="avatar avatar-sm rounded-circle">
-                                @if (isset($data) && $data->gambar)
-                                    <img class="avatar user-avatar avatar-sm rounded-circle"
-                                        src="data:image/png;base64,{{ $data->gambar }}" alt=""
-                                        style="background-color: #DBE7F9; object-fit: cover;">
-                                @else
-                                    <img class="avatar user-avatar avatar-sm rounded-circle" src="{{ asset('img/user2.png') }}"
-                                        alt="" style="background-color: #DBE7F9; object-fit: cover;">
-                                @endif
-                            </span>
-                        </a>
+                        <div class="nav-item dropdown d-md-flex me-3" title="Profile" data-bs-toggle="tooltip"
+                            data-bs-placement="bottom">
+                            <a id="dropdown" href="#" class="nav-link d-flex lh-1 text-reset p-0"
+                                data-bs-toggle="dropdown">
+                                <span class="avatar avatar-sm rounded-circle">
+                                    @if (isset($data) && $data->gambar)
+                                        <img class="avatar user-avatar avatar-sm rounded-circle"
+                                            src="data:image/png;base64,{{ $data->gambar }}" alt=""
+                                            style="background-color: #DBE7F9; object-fit: cover;">
+                                    @else
+                                        <img class="avatar user-avatar avatar-sm rounded-circle"
+                                            src="{{ asset('img/user2.png') }}" alt=""
+                                            style="background-color: #DBE7F9; object-fit: cover;">
+                                    @endif
+                                </span>
+                            </a>
 
-                        <div class="dropdown-menu dropdown-menu-end dropdown-menu-arrow" style="border-radius: 10px">
-                            <a class="dropdown-item" href="{{ route(auth()->user()->role . '.profile') }}">
-                                Lihat Profile
-                            </a>
-                            <a class="dropdown-item" href="#" data-bs-toggle="modal"
-                                data-bs-target="#logoutModal">
-                                Logout
-                            </a>
+                            <div class="dropdown-menu dropdown-menu-end dropdown-menu-arrow"
+                                style="border-radius: 10px">
+                                <a class="dropdown-item" href="{{ route(auth()->user()->role . '.profile') }}">
+                                    Lihat Profile
+                                </a>
+                                <a class="dropdown-item" href="#" data-bs-toggle="modal"
+                                    data-bs-target="#logoutModal">
+                                    Logout
+                                </a>
+                            </div>
                         </div>
-                    </div>
                     @else
-                    <div class="nav-item d-md-flex me-3">
-                        <div class="btn-list">
-                            <a href="{{ route('auth.login') }}"
-                                class="btn btn-outline-info border-info btn-pill {{ request()->route()->named('login') ? 'active' : '' }}">
-                                Log In
-                            </a>
-                            <a href="{{ route('auth.register') }}"
-                                class="btn btn-outline-info border-info btn-pill {{ request()->route()->named('register') ? 'active' : '' }}">
-                                Sign In
-                            </a>
+                        <div class="nav-item d-md-flex me-3">
+                            <div class="btn-list">
+                                <a href="{{ route('auth.login') }}"
+                                    class="btn btn-outline-info border-info btn-pill {{ request()->route()->named('login') ? 'active' : '' }}">
+                                    Log In
+                                </a>
+                                <a href="{{ route('auth.register') }}"
+                                    class="btn btn-outline-info border-info btn-pill {{ request()->route()->named('register') ? 'active' : '' }}">
+                                    Sign In
+                                </a>
+                            </div>
                         </div>
-                    </div>
                     @endif
                 </div>
             </div>
@@ -218,23 +229,23 @@
             }
         });
         if ('serviceWorker' in navigator) {
-        navigator.serviceWorker.register('/serviceworker.js')
-            .then(function(registration) {
-                console.log('Service Worker registered with scope:', registration.scope);
-            })
-            .catch(function(error) {
-                console.log('Service Worker registration failed:', error);
+            navigator.serviceWorker.register('/serviceworker.js')
+                .then(function(registration) {
+                    console.log('Service Worker registered with scope:', registration.scope);
+                })
+                .catch(function(error) {
+                    console.log('Service Worker registration failed:', error);
+                });
+        }
+        // Inisialisasi tooltip untuk seluruh elemen dengan data-bs-toggle="tooltip"
+        document.addEventListener('DOMContentLoaded', function() {
+            const tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
+            const tooltipList = tooltipTriggerList.map(function(tooltipTriggerEl) {
+                return new bootstrap.Tooltip(tooltipTriggerEl);
             });
-    }
-    // Inisialisasi tooltip untuk seluruh elemen dengan data-bs-toggle="tooltip"
-document.addEventListener('DOMContentLoaded', function () {
-    const tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
-    const tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
-        return new bootstrap.Tooltip(tooltipTriggerEl);
-    });
-});
-
+        });
     </script>
+
 </body>
 
 </html>

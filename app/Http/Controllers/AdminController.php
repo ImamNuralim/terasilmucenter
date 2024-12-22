@@ -84,7 +84,8 @@ class AdminController extends Controller
             'date' => 'required|date_format:d-m-Y',
             'alamat' => 'required|string',
             'gender' => 'nullable|in:Laki-laki,Perempuan',
-            'telp' => 'required|string|max:15',
+            'telp' => 'required|numeric|max_digits:15',
+
             'username' => 'required|string|max:20|unique:murid,username|unique:users,username',
             'email' => 'required|string|email|max:40|unique:murid,email',
         ]);
@@ -206,7 +207,7 @@ class AdminController extends Controller
             'date' => 'nullable|date_format:d-m-Y',
             'alamat' => 'nullable|string',
             'gender' => 'nullable|in:Laki-laki,Perempuan',
-            'telp' => 'nullable|string|max:15',
+            'telp' => 'required|numeric|max_digits:15',
             'username' => [
                 'nullable',
                 'string',
@@ -471,7 +472,8 @@ class AdminController extends Controller
             'date' => 'required|date_format:d-m-Y',
             'alamat' => 'required|string',
             'gender' => 'nullable|in:Laki-laki,Perempuan',
-            'telp' => 'required|string|max:15',
+            'telp' => 'required|numeric|max_digits:15',
+
             'username' => 'required|string|max:20|unique:murid,username|unique:users,username',
             'email' => 'required|string|email|max:40|unique:murid,email',
         ]);
@@ -858,7 +860,8 @@ class AdminController extends Controller
             'date' => 'required|date_format:d-m-Y',
             'alamat' => 'required|string',
             'gender' => 'nullable|in:Laki-laki,Perempuan',
-            'telp' => 'required|string|max:15',
+            'telp' => 'required|numeric|max_digits:15',
+
             'username' => 'required|string|max:20|unique:murid,username|unique:users,username',
             'email' => 'required|string|email|max:40|unique:murid,email',
         ]);
@@ -1378,7 +1381,7 @@ class AdminController extends Controller
         }
         //dd($request->all());
 
-        // Persiapkan array update untuk data 
+        // Persiapkan array update untuk data
         $editIklan = [];
         if ($request->filled('judul')) {
             $editIklan['judul'] = $request->input('judul');
@@ -1400,7 +1403,7 @@ class AdminController extends Controller
 
         //dd($editIklan);
 
-        // Update data 
+        // Update data
         if (!empty($editIklan)) {
             $iklan->update($editIklan);
         }

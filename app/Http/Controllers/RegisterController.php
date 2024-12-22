@@ -47,7 +47,7 @@ class RegisterController extends Controller
             'date' => 'required|date_format:d-m-Y',
             'alamat' => 'required|string',
             'gender' => 'nullable|in:Laki-laki,Perempuan',
-            'telp' => 'required|string|max:15',
+            'telp' => 'required|numeric|max_digits:15',
             'username' => 'required|string|max:20|unique:umum,username|unique:users,username',
             'email' => 'required|string|email|max:40|unique:umum,email',
             'password' => 'required|string|min:8',

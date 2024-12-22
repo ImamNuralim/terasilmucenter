@@ -3,10 +3,7 @@
 
     <head>
         <link rel="stylesheet" href="{{ asset('assets/css/home.css') }}">
-        <!-- PWA  -->
-        <meta name="theme-color" content="#6777ef" />
-        <link rel="apple-touch-icon" href="{{ asset('logoTSII.png') }}">
-        <link rel="manifest" href="{{ asset('/manifest.json') }}">
+
     </head>
     <style>
         /* Style untuk form-control saat hover */
@@ -238,6 +235,9 @@
                             </li>
                         @endforeach
                     </ul>
+                    <a href="https://terasilmucenter.site/" style="text-decoration: none; list-style-type: disc;  margin-left: 5px; margin-top: auto; position: absolute; bottom: 15px;">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 56 56"><path fill="currentColor" d="M28 51.906c13.055 0 23.906-10.828 23.906-23.906c0-13.055-10.875-23.906-23.93-23.906C14.899 4.094 4.095 14.945 4.095 28c0 13.078 10.828 23.906 23.906 23.906m0-3.984C16.937 47.922 8.1 39.062 8.1 28c0-11.04 8.813-19.922 19.876-19.922c11.039 0 19.921 8.883 19.945 19.922c.023 11.063-8.883 19.922-19.922 19.922m-.211-28.266c1.71 0 3.047-1.36 3.047-3.047c0-1.71-1.336-3.07-3.047-3.07s-3.047 1.36-3.047 3.07a3.026 3.026 0 0 0 3.047 3.047m-3.914 21.235h9.562c.961 0 1.711-.68 1.711-1.641c0-.914-.75-1.64-1.71-1.64H30.53V25.68c0-1.266-.656-2.11-1.828-2.11h-4.43c-.937 0-1.687.727-1.687 1.64c0 .962.75 1.642 1.687 1.642h2.532v10.757h-2.93c-.938 0-1.688.727-1.688 1.641c0 .96.75 1.64 1.688 1.64"/></svg>Tentang kami</a>
+
                 </div>
 
 
@@ -431,51 +431,43 @@
 
 
                 </div>
-
                 <div class="col-lg-1 call-to-action sticky" style="height: min-content;">
+                    <div class="form-group">
+                        <label for="city-search">Cari Kota:</label>
+                        <input type="text" id="city-search" class="form-control" placeholder="Masukkan nama kota...">
+                        <ul id="city-list" class="list-group mt-2"></ul>
+                    </div>
 
-                    <div class="card-body">
-                        <p class="text-center">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" fill="currentColor"
-                                class="bi bi-geo-alt-fill" viewBox="0 0 16 16">
-                                <path
-                                    d="M8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10m0-7a3 3 0 1 1 0-6 3 3 0 0 1 0 6" />
-                            </svg>
-                            {{ $data->alamat }}, {{ ucwords(strtolower($prayerSchedule['daerah'] ?? 'N/A')) }}
-                        </p>
+                    <div id="schedule" class="mt-4" style="display: none;">
+                        <h4>Jadwal Sholat untuk <span id="city-name"></span></h4>
                         <ul class="list-group">
-                            <li class="list-group-item d-flex justify-content-between align-items-center imsak">
+                            <li class="list-group-item d-flex justify-content-between align-items-center">
                                 Imsak
-                                <span
-                                    class="badge text-bg-primary rounded-pill">{{ $prayerSchedule['jadwal']['imsak'] ?? 'N/A' }}</span>
+                                <span id="imsak" class="badge text-bg-primary rounded-pill">N/A</span>
                             </li>
-                            <li class="list-group-item d-flex justify-content-between align-items-center subuh">
+                            <li class="list-group-item d-flex justify-content-between align-items-center">
                                 Subuh
-                                <span
-                                    class="badge text-bg-primary rounded-pill">{{ $prayerSchedule['jadwal']['subuh'] ?? 'N/A' }}</span>
+                                <span id="subuh" class="badge text-bg-primary rounded-pill">N/A</span>
                             </li>
-                            <li class="list-group-item d-flex justify-content-between align-items-center dzuhur">
+                            <li class="list-group-item d-flex justify-content-between align-items-center">
                                 Dzuhur
-                                <span
-                                    class="badge text-bg-primary rounded-pill">{{ $prayerSchedule['jadwal']['dzuhur'] ?? 'N/A' }}</span>
+                                <span id="dzuhur" class="badge text-bg-primary rounded-pill">N/A</span>
                             </li>
-                            <li class="list-group-item d-flex justify-content-between align-items-center ashar">
+                            <li class="list-group-item d-flex justify-content-between align-items-center">
                                 Ashar
-                                <span
-                                    class="badge text-bg-primary rounded-pill">{{ $prayerSchedule['jadwal']['ashar'] ?? 'N/A' }}</span>
+                                <span id="ashar" class="badge text-bg-primary rounded-pill">N/A</span>
                             </li>
-                            <li class="list-group-item d-flex justify-content-between align-items-center maghrib">
+                            <li class="list-group-item d-flex justify-content-between align-items-center">
                                 Maghrib
-                                <span
-                                    class="badge text-bg-primary rounded-pill">{{ $prayerSchedule['jadwal']['maghrib'] ?? 'N/A' }}</span>
+                                <span id="maghrib" class="badge text-bg-primary rounded-pill">N/A</span>
                             </li>
-                            <li class="list-group-item d-flex justify-content-between align-items-center isya">
+                            <li class="list-group-item d-flex justify-content-between align-items-center">
                                 Isya
-                                <span
-                                    class="badge text-bg-primary rounded-pill">{{ $prayerSchedule['jadwal']['isya'] ?? 'N/A' }}</span>
+                                <span id="isya" class="badge text-bg-primary rounded-pill">N/A</span>
                             </li>
                         </ul>
                     </div>
+
                     <div class="row mt-4">
                         <div class="col-sm-6">
                             <a href="{{ route('kitab.surah') }}" class="card card-button">
@@ -601,23 +593,7 @@
         </div>
 
 
-        <script src="{{ asset('/sw.js') }}"></script>
-        <script>
-            if ("serviceWorker" in navigator) {
-                // Register a service worker hosted at the root of the
-                // site using the default scope.
-                navigator.serviceWorker.register("/sw.js").then(
-                    (registration) => {
-                        console.log("Service worker registration succeeded:", registration);
-                    },
-                    (error) => {
-                        console.error(`Service worker registration failed: ${error}`);
-                    },
-                );
-            } else {
-                console.error("Service workers are not supported.");
-            }
-        </script>
+
         <script>
             // Fungsi untuk menampilkan pratinjau gambar
             function previewImage(event) {
@@ -685,6 +661,11 @@
                 }
             });
         </script>
+
+
+        <script src="{{ asset('assets/js/jadwal-sholat.js') }}"></script>
+
+
     </body>
 
 
